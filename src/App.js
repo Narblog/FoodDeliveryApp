@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import {DUMMY_PRODUCTS} from "./DummyProducts"
 import './App.css';
+import Card from './components/Card/Card';
+import Header from './components/Header/Header';
+import ProductList from './components/ProductList/ProductList';
+import { useState,useMemo } from "react";
+
+const filterProduct=(category)=>{
+  if(category==="All"){
+    return DUMMY_PRODUCTS
+  }
+  else{
+    return DUMMY_PRODUCTS.filter(elm=>elm.category===category)
+  }
+}
 
 function App() {
+  const [filterText,setFilterText]=useState("All")
+  const products=useMemo(()=>filterProduct(filterText),[filterText])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <Header onFilter={(text)=>setFilterText(text)}/>
+   <div className='flex'>
+    <ProductList products={products}/>
+    
+   </div>
     </div>
   );
 }
