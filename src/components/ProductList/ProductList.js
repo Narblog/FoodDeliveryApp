@@ -1,13 +1,14 @@
 import ProductItem from "../ProductItem/ProductItem"
 
-const ProductList=({products})=>{
+const ProductList=({products,onMove})=>{
     return(
         <div className="flex">
             {
                 products.map(elm=>{
                     return <ProductItem
                     key={elm.id}
-                    product={elm}/>
+                    product={elm}
+                    onMove={onMove}/>
                 })
             }
 
